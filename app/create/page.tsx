@@ -1,0 +1,94 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import LogoTitle from "./_components/logoTitle";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import LogoDesc from "./_components/logoDesc";
+import LogoPalette from "./_components/logoPalette";
+import LogoDesigns from "./_components/logoDesigns";
+import LogoIdeas from "./_components/logoIdeas";
+
+interface Design {
+  title: string;
+  prompt: string;
+  image: string;
+}
+
+interface FormData {
+  title: string;
+  desc: string;
+  palette?: string;
+  design: Design;
+  idea?: string;
+}
+
+function Page() {
+  const [step, setStep] = useState<number>(1);
+  const [formData, setFormData] = useState<Partial<FormData>>({});
+
+  const onHandleInputChange = (field: string, value: any): void => {
+    setFormData((prev) => {
+      const newData = {
+        ...prev,
+        [field]: value,
+      };
+      console.log('Updated form data:', newData);
+      return newData;
+    });
+  };
+
+  const handleContinue = () => {
+    if (step === 1 && !formData.title) {
+      alert('Please enter a title');
+      return;
+    }
+    setStep(step + 1);
+  };
+
+  return (
+    <div className="mt-28 p-10 border rounded-xl 2xl:mx-72">
+      {step === 1 ? (
+        <LogoTitle
+          onHandleInputChange={(v) => onHandleInputChange("title", v)}
+          formData={formData}
+        />
+      ) : step === 2 ? (
+        <LogoDesc
+          onHandleInputChange={(v) => onHandleInputChange("desc", v)}
+          formData={formData}
+        />
+      ) : step === 3 ? (
+        <LogoPalette
+          onHandleInputChange={(v) => onHandleInputChange("palette", v)}
+          formData={formData}
+        />
+      ) : step === 4 ? (
+        <LogoDesigns
+          onHandleInputChange={(v) => onHandleInputChange("design", v)}
+          formData={formData}
+        />
+      ) : step === 5 ? (
+        <LogoIdeas
+          onHandleInputChange={(v) => onHandleInputChange("idea", v)}
+          formData={formData as FormData}
+        />
+      ) : null}
+
+      <div className="flex items-center justify-between mt-10">
+        {step !== 1 && (
+          <Button variant="outline" onClick={() => setStep(step - 1)}>
+            <ArrowLeft />
+            Previous
+          </Button>
+        )}
+        <Button onClick={handleContinue}>
+          <ArrowRight />
+          Continue
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+export default Page;
