@@ -14,12 +14,14 @@ function Header() {
       </Link>
       <div className="flex gap-3 items-center">
         {user ? (
-          <Button
-            className="p-5 font-semibold cursor-pointer"
-            variant="outline"
-          >
-            Dashboard
-          </Button>
+          <Link href={"/dashboard"}>
+            <Button
+              className="p-5 font-semibold cursor-pointer"
+              variant="outline"
+            >
+              Dashboard
+            </Button>
+          </Link>
         ) : (
           <Button className="p-5 font-semibold cursor-pointer">
             Get Started

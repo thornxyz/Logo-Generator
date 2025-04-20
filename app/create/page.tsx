@@ -8,8 +8,8 @@ import LogoDesc from "./_components/logoDesc";
 import LogoPalette from "./_components/logoPalette";
 import LogoDesigns from "./_components/logoDesigns";
 import LogoIdeas from "./_components/logoIdeas";
-import PricingModel from "./_components/pricingModel";
-import { FormData, Design } from "@/types";
+import FinalStep from "./_components/finalPage";
+import { FormData } from "@/types";
 
 function Page() {
   const [step, setStep] = useState<number>(1);
@@ -39,22 +39,22 @@ function Page() {
       {step === 1 ? (
         <LogoTitle
           onHandleInputChange={(v) => onHandleInputChange("title", v)}
-          formData={formData}
+          formData={formData as FormData}
         />
       ) : step === 2 ? (
         <LogoDesc
           onHandleInputChange={(v) => onHandleInputChange("desc", v)}
-          formData={formData}
+          formData={formData as FormData}
         />
       ) : step === 3 ? (
         <LogoPalette
           onHandleInputChange={(v) => onHandleInputChange("palette", v)}
-          formData={formData}
+          formData={formData as FormData}
         />
       ) : step === 4 ? (
         <LogoDesigns
           onHandleInputChange={(v) => onHandleInputChange("design", v)}
-          formData={formData}
+          formData={formData as FormData}
         />
       ) : step === 5 ? (
         <LogoIdeas
@@ -62,8 +62,8 @@ function Page() {
           formData={formData as FormData}
         />
       ) : step === 6 ? (
-        <PricingModel
-          onHandleInputChange={(v) => onHandleInputChange("pricing", v)}
+        <FinalStep
+          onHandleInputChange={(v) => onHandleInputChange("", v)}
           formData={formData as FormData}
         />
       ) : null}
@@ -75,10 +75,12 @@ function Page() {
             Previous
           </Button>
         )}
-        <Button onClick={handleContinue}>
-          <ArrowRight />
-          Continue
-        </Button>
+        {step !== 6 && (
+          <Button onClick={handleContinue}>
+            <ArrowRight />
+            Continue
+          </Button>
+        )}
       </div>
     </div>
   );

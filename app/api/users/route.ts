@@ -23,7 +23,6 @@ export async function POST(req: NextRequest) {
         const userDoc = {
             name,
             email,
-            credits: 5,
             createdAt: new Date(),
         };
 

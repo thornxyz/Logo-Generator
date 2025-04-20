@@ -25,7 +25,6 @@ export interface FormData {
 export interface UserDetails {
   name?: string;
   email?: string;
-  credits?: number;
 }
 
 export interface SharedFormProps<T = any> {
@@ -39,7 +38,7 @@ export type LogoDescProps = SharedFormProps<string>;
 export type LogoPaletteProps = SharedFormProps<string>;
 export type LogoDesignsProps = SharedFormProps<Design>;
 export type LogoIdeasProps = SharedFormProps<string>;
-export type PricingModelProps = SharedFormProps<any>;
+export type finalPageProps = SharedFormProps<any>;
 
 export interface UserDetailContextType {
   userDetails: UserDetails | null;

@@ -6,6 +6,9 @@ import prompt from "../_data/prompt";
 import { FormData } from "@/types";
 import axios from "axios";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Download, LayoutDashboard, Loader2 } from "lucide-react";
+import Link from "next/link";
 
 function GenerateLogo() {
   const { userDetails, setUserDetails } = useContext(UserDetailContext);
@@ -59,15 +62,48 @@ function GenerateLogo() {
   };
 
   return (
-    <div>
-      <h2>{loading && "Loading..."}</h2>{" "}
+    <div className="mt-5">
+      {loading && (
+        <div className="flex flex-col items-center gap-2 mt-10">
+          <Loader2 className="h-6 w-6 animate-spin text-primary" />
+          <p className="text-sm text-muted-foreground">
+            Generating your logo...
+          </p>
+        </div>
+      )}
       {!loading && (
-        <Image
-          src={logoImage || "/placeholder.png"}
-          alt="logo"
-          width={200}
-          height={200}
-        />
+        <div className="flex flex-col items-center justify-center gap-6">
+          <h1 className="text-3xl font-bold">Your Logo Has been Generated!</h1>
+          <Image
+            src={logoImage || "/placeholder.png"}
+            alt="logo"
+            width={300}
+            height={300}
+            className="rounded-lg"
+          />
+          <div className="flex gap-20">
+            <Button
+              className="p-5 cursor-pointer"
+              onClick={() => {
+                if (logoImage) {
+                  const link = document.createElement("a");
+                  link.href = logoImage;
+                  link.download = "generated-logo.png";
+                  link.click();
+                }
+              }}
+            >
+              <Download />
+              Download
+            </Button>
+            <Link href={"/dashboard"}>
+              <Button className="p-5 cursor-pointer" variant="outline">
+                <LayoutDashboard />
+                Dashboard
+              </Button>
+            </Link>
+          </div>
+        </div>
       )}
     </div>
   );

@@ -23,13 +23,12 @@ export async function POST(req: Request) {
         const updateResult = await collection.updateOne(
             { email },
             {
-                $set: {
-                    title,
-                    desc,
-                    imageUrl,
-                },
-            }
+                $set: { title, desc },
+                $push: { imageUrls: imageUrl } as any,
+            },
+            { upsert: true }
         );
+
 
         if (updateResult.modifiedCount === 0) {
             return NextResponse.json(
