@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import { SignInButton, useUser } from "@clerk/nextjs";
 import { PricingModelProps } from "@/types";
+import Link from "next/link";
 
 function PricingModel({ onHandleInputChange, formData }: PricingModelProps) {
   const { user } = useUser();
@@ -25,7 +26,10 @@ function PricingModel({ onHandleInputChange, formData }: PricingModelProps) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-5">
         {lookup.pricingOption.map((pricing, index) => (
-          <div key={index} className="flex flex-col items-center p-5 border rounded-xl">
+          <div
+            key={index}
+            className="flex flex-col items-center p-5 border rounded-xl"
+          >
             <Image
               src={pricing.icon}
               alt={pricing.title}
@@ -41,7 +45,9 @@ function PricingModel({ onHandleInputChange, formData }: PricingModelProps) {
               ))}
             </div>
             {user ? (
-              <Button className="mt-5">{pricing.button}</Button>
+              <Link href={"/generate-logo?type=" + pricing.title}>
+                <Button className="mt-5">{pricing.button}</Button>
+              </Link>
             ) : (
               <SignInButton
                 mode="modal"

@@ -5,10 +5,11 @@ import Header from "./_components/header";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { UserDetailContext } from "./_context/userDetailContext";
+import { UserDetails } from "@/types";
 
 function Provider({ children }: { children: React.ReactNode }) {
   const { user } = useUser();
-  const [userDetails, setUserDetails] = useState();
+  const [userDetails, setUserDetails] = useState<UserDetails | null>(null);
 
   useEffect(() => {
     user && CheckUserAuth();
@@ -19,7 +20,6 @@ function Provider({ children }: { children: React.ReactNode }) {
       name: user?.fullName,
       email: user?.primaryEmailAddress?.emailAddress,
     });
-    // console.log(result.data);
     setUserDetails(result.data);
   };
 
@@ -32,4 +32,5 @@ function Provider({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+
 export default Provider;

@@ -1,11 +1,11 @@
 import { GoogleGenAI } from "@google/genai";
-import { LogoIdea, LogoIdeasResponse } from "@/types";
+import { LogoIdeasResponse } from "@/types";
 
 const ai = new GoogleGenAI({
   apiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY,
 });
 
-export async function generateLogoIdeas(
+export async function getResponse(
   prompt: string
 ): Promise<LogoIdeasResponse | null> {
   try {
@@ -31,19 +31,28 @@ export async function generateLogoIdeas(
       return null;
     }
 
-    let cleaned = textPart.text.trim();
-    if (cleaned.startsWith("```")) {
-      cleaned = cleaned
-        .replace(/```(?:json)?/, "")
-        .replace(/```$/, "")
-        .trim();
-    }
-
-    const rawJson = JSON.parse(cleaned);
-
-    return { rawJson };
+    const rawJson = parseJsonResponse(textPart.text);
+    return rawJson ? { rawJson } : null;
   } catch (error) {
     console.error("Error generating logo ideas:", error);
+    return null;
+  }
+}
+
+export function parseJsonResponse(responseText: string): any {
+  let cleaned = responseText.trim();
+
+  if (cleaned.startsWith("```")) {
+    cleaned = cleaned
+      .replace(/```(?:json)?/, "")
+      .replace(/```$/, "")
+      .trim();
+  }
+
+  try {
+    return JSON.parse(cleaned);
+  } catch (error) {
+    console.error("Failed to parse JSON:", error);
     return null;
   }
 }

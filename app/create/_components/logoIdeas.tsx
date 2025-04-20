@@ -32,10 +32,10 @@ function LogoIdeas({ formData, onHandleInputChange }: LogoIdeasProps) {
       .replace("{logoPrompt}", formData.design.prompt);
 
     try {
-      const result = await axios.post("/api/ai-design-ideas", {
+      const result = await axios.post("/api/getPrompt", {
         prompt: PROMPT,
       });
-      
+
       const ideasArray = (result.data || []).map(
         (item: { idea: string }) => item.idea
       );

@@ -5,7 +5,7 @@ import HeadingDesc from "./headingDesc";
 import logoDesig from "@/app/_data/logoDesig";
 import Image from "next/image";
 import { useState } from "react";
-import { LogoDesignsProps, Design } from "@/types";
+import { LogoDesignsProps } from "@/types";
 
 function LogoDesigns({ onHandleInputChange, formData }: LogoDesignsProps) {
   const [selectedOption, setSelectedOption] = useState<string>(

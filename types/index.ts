@@ -22,6 +22,12 @@ export interface FormData {
   idea?: string;
 }
 
+export interface UserDetails {
+  name?: string;
+  email?: string;
+  credits?: number;
+}
+
 export interface SharedFormProps<T = any> {
   formData: FormData;
   onHandleInputChange: (value: T) => void;
@@ -34,3 +40,8 @@ export type LogoPaletteProps = SharedFormProps<string>;
 export type LogoDesignsProps = SharedFormProps<Design>;
 export type LogoIdeasProps = SharedFormProps<string>;
 export type PricingModelProps = SharedFormProps<any>;
+
+export interface UserDetailContextType {
+  userDetails: UserDetails | null;
+  setUserDetails: (value: UserDetails | null) => void;
+}
