@@ -3,10 +3,12 @@
 import { useUser } from "@clerk/nextjs";
 import Header from "./_components/header";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { UserDetailContext } from "./_context/userDetailContext";
 
 function Provider({ children }: { children: React.ReactNode }) {
   const { user } = useUser();
+  const [userDetails, setUserDetails] = useState();
 
   useEffect(() => {
     user && CheckUserAuth();
@@ -17,13 +19,16 @@ function Provider({ children }: { children: React.ReactNode }) {
       name: user?.fullName,
       email: user?.primaryEmailAddress?.emailAddress,
     });
-    console.log(result.data);
+    // console.log(result.data);
+    setUserDetails(result.data);
   };
 
   return (
     <div>
-      <Header />
-      <div className="px-10 lg:px-32 xl:px-48 2xl:px-56">{children}</div>
+      <UserDetailContext.Provider value={{ userDetails, setUserDetails }}>
+        <Header />
+        <div className="px-10 lg:px-32 xl:px-48 2xl:px-56">{children}</div>
+      </UserDetailContext.Provider>
     </div>
   );
 }

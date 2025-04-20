@@ -17,10 +17,7 @@ export async function POST(req: NextRequest) {
         const existingUser = await usersCollection.findOne({ email });
 
         if (existingUser) {
-            return NextResponse.json({
-                message: 'User already exists',
-                user: existingUser,
-            });
+            return NextResponse.json(existingUser);
         }
 
         const userDoc = {
@@ -30,12 +27,9 @@ export async function POST(req: NextRequest) {
             createdAt: new Date(),
         };
 
-        const result = await usersCollection.insertOne(userDoc);
+        await usersCollection.insertOne(userDoc);
 
-        return NextResponse.json({
-            message: 'User created successfully',
-            user: { ...userDoc, _id: result.insertedId },
-        });
+        return NextResponse.json(userDoc);
     } catch (error) {
         console.error('Error storing user info:', error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
