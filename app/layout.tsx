@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Host_Grotesk } from "next/font/google";
 import "./globals.css";
 import Provider from "./provider";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const hostGrotesk = Host_Grotesk({
   subsets: ["latin"],
@@ -18,10 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={hostGrotesk.className}>
-        <Provider>{children}</Provider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={hostGrotesk.className}>
+          <Provider>{children}</Provider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

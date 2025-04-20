@@ -83,8 +83,8 @@ function LogoIdeas({ formData, onHandleInputChange }: LogoIdeasProps) {
               onHandleInputChange(item);
             }}
             className={`p-2 rounded-full border px-3 cursor-pointer
-              hover:border-primary ${
-                selectedOption === item && "border-primary"
+              hover:border-red-700 ${
+                selectedOption === item && "border-red-700"
               }`}
           >
             {item}
@@ -96,9 +96,9 @@ function LogoIdeas({ formData, onHandleInputChange }: LogoIdeasProps) {
             onHandleInputChange("Let AI Select the best idea");
           }}
           className={`p-2 rounded-full border px-3 cursor-pointer
-            hover:border-primary ${
+            hover:border-red-700 ${
               selectedOption === "Let AI Select the best idea" &&
-              "border-primary"
+              "border-red-700"
             }`}
         >
           Let AI Select the best idea

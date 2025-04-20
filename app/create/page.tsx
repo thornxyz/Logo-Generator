@@ -3,11 +3,12 @@
 import { Button } from "@/components/ui/button";
 import LogoTitle from "./_components/logoTitle";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import LogoDesc from "./_components/logoDesc";
 import LogoPalette from "./_components/logoPalette";
 import LogoDesigns from "./_components/logoDesigns";
 import LogoIdeas from "./_components/logoIdeas";
+import PricingModel from "./_components/pricingModel";
 
 interface Design {
   title: string;
@@ -33,14 +34,14 @@ function Page() {
         ...prev,
         [field]: value,
       };
-      console.log('Updated form data:', newData);
+      console.log("Updated form data:", newData);
       return newData;
     });
   };
 
   const handleContinue = () => {
     if (step === 1 && !formData.title) {
-      alert('Please enter a title');
+      alert("Please enter a title");
       return;
     }
     setStep(step + 1);
@@ -71,6 +72,11 @@ function Page() {
       ) : step === 5 ? (
         <LogoIdeas
           onHandleInputChange={(v) => onHandleInputChange("idea", v)}
+          formData={formData as FormData}
+        />
+      ) : step === 6 ? (
+        <PricingModel
+          onHandleInputChange={(v) => onHandleInputChange("pricing", v)}
           formData={formData as FormData}
         />
       ) : null}
