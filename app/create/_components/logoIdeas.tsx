@@ -4,21 +4,7 @@ import Lookup from "@/app/_data/lookup";
 import axios from "axios";
 import Prompt from "@/app/_data/prompt";
 import { Loader2Icon } from "lucide-react";
-
-interface Design {
-  title: string;
-  prompt: string;
-}
-
-interface LogoIdeasProps {
-  formData: {
-    design: Design;
-    title: string;
-    desc: string;
-    idea?: string;
-  };
-  onHandleInputChange: (value: string) => void;
-}
+import { LogoIdeasProps, Design } from "@/types";
 
 function LogoIdeas({ formData, onHandleInputChange }: LogoIdeasProps) {
   const [ideas, setIdeas] = useState<string[]>([]);
@@ -49,7 +35,7 @@ function LogoIdeas({ formData, onHandleInputChange }: LogoIdeasProps) {
       const result = await axios.post("/api/ai-design-ideas", {
         prompt: PROMPT,
       });
-      // console.log("result:", result.data);
+      
       const ideasArray = (result.data || []).map(
         (item: { idea: string }) => item.idea
       );

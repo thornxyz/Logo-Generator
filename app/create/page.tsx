@@ -9,20 +9,7 @@ import LogoPalette from "./_components/logoPalette";
 import LogoDesigns from "./_components/logoDesigns";
 import LogoIdeas from "./_components/logoIdeas";
 import PricingModel from "./_components/pricingModel";
-
-interface Design {
-  title: string;
-  prompt: string;
-  image: string;
-}
-
-interface FormData {
-  title: string;
-  desc: string;
-  palette?: string;
-  design: Design;
-  idea?: string;
-}
+import { FormData, Design } from "@/types";
 
 function Page() {
   const [step, setStep] = useState<number>(1);

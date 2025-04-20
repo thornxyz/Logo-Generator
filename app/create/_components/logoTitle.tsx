@@ -4,13 +4,7 @@ import lookup from "@/app/_data/lookup";
 import HeadingDesc from "./headingDesc";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-
-interface LogoTitleProps {
-  onHandleInputChange: (value: string) => void;
-  formData: {
-    title?: string;
-  };
-}
+import { LogoTitleProps } from "@/types";
 
 function LogoTitle({ onHandleInputChange, formData }: LogoTitleProps) {
   const searchParam = useSearchParams();

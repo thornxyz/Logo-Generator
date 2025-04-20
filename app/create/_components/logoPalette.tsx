@@ -2,13 +2,7 @@ import lookup from "@/app/_data/lookup";
 import HeadingDesc from "./headingDesc";
 import colors from "@/app/_data/colors";
 import { useState } from "react";
-
-interface LogoPaletteProps {
-  onHandleInputChange: (value: string) => void;
-  formData: {
-    palette?: string;
-  };
-}
+import { LogoPaletteProps } from "@/types";
 
 function LogoPalette({ onHandleInputChange, formData }: LogoPaletteProps) {
   const [selectedOption, setSelectedOption] = useState<string>(

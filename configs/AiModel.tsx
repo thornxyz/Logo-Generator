@@ -1,16 +1,9 @@
 import { GoogleGenAI } from "@google/genai";
+import { LogoIdea, LogoIdeasResponse } from "@/types";
 
 const ai = new GoogleGenAI({
   apiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY,
 });
-
-interface LogoIdea {
-  idea: string;
-}
-
-interface LogoIdeasResponse {
-  rawJson: LogoIdea[];
-}
 
 export async function generateLogoIdeas(
   prompt: string

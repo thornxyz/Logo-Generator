@@ -1,12 +1,6 @@
 import lookup from "@/app/_data/lookup";
 import HeadingDesc from "./headingDesc";
-
-interface LogoDescProps {
-  onHandleInputChange: (value: string) => void;
-  formData: {
-    desc?: string;
-  };
-}
+import { LogoDescProps } from "@/types";
 
 function LogoDesc({ onHandleInputChange, formData }: LogoDescProps) {
   return (
@@ -20,7 +14,7 @@ function LogoDesc({ onHandleInputChange, formData }: LogoDescProps) {
         type="text"
         placeholder={lookup.InputTitlePlaceholder}
         className="p-4 border rounded-lg mt-5 w-full"
-        value={formData?.desc}
+        value={formData?.desc || ""}
         onChange={(e) => onHandleInputChange(e.target.value)}
       />
     </div>
