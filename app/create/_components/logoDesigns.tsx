@@ -34,8 +34,8 @@ function LogoDesigns({ onHandleInputChange, formData }: LogoDesignsProps) {
             <Image
               src={design.image}
               alt={design.title}
-              width={300}
-              height={200}
+              width={70}
+              height={70}
               className="w-full rounded-xl object-cover"
             />
           </div>
