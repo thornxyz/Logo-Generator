@@ -13,7 +13,7 @@ function Hero() {
         {lookup.HeroHeading}
       </h2>
       <h2 className="text-5xl text-center font-bold">
-        {lookup.HeroSubHeading}
+        {lookup.HeroSubheading}
       </h2>
       <p className="text-lg text-gray-500 text-center">{lookup.HeroDesc}</p>
 

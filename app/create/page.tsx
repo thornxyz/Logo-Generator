@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import LogoTitle from "./_components/logoTitle";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import LogoDesc from "./_components/logoDesc";
 import LogoPalette from "./_components/logoPalette";
 import LogoDesigns from "./_components/logoDesigns";
@@ -37,10 +37,12 @@ function Page() {
   return (
     <div className="mt-28 p-10 border rounded-xl 2xl:mx-72">
       {step === 1 ? (
-        <LogoTitle
-          onHandleInputChange={(v) => onHandleInputChange("title", v)}
-          formData={formData as FormData}
-        />
+        <Suspense fallback={<div>Loading...</div>}>
+          <LogoTitle
+            onHandleInputChange={(v) => onHandleInputChange("title", v)}
+            formData={formData as FormData}
+          />
+        </Suspense>
       ) : step === 2 ? (
         <LogoDesc
           onHandleInputChange={(v) => onHandleInputChange("desc", v)}
