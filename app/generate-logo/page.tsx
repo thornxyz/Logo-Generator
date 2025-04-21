@@ -15,6 +15,7 @@ function GenerateLogo() {
   const [formData, setFormData] = useState<FormData | null>(null);
   const [loading, setLoading] = useState(false);
   const [logoImage, setLogoImage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined" && userDetails?.email) {
@@ -33,6 +34,9 @@ function GenerateLogo() {
 
   const GenerateAILogo = async () => {
     setLoading(true);
+    setError(null);
+    setLogoImage(null);
+
     //prettier-ignore
     const PROMPT = prompt.LOGO_PROMPT
       .replace("{logoTitle}",formData?.title || "")
@@ -42,23 +46,28 @@ function GenerateLogo() {
       .replace("{logoPrompt}", formData?.design?.prompt || "")
       .replace("{logoIdea}", formData?.idea || "");
 
-    // console.log(PROMPT);
+    try {
+      const result = await axios.post("/api/getPrompt", { prompt: PROMPT });
+      const imagePrompt = result.data.prompt;
 
-    const result = await axios.post("/api/getPrompt", { prompt: PROMPT });
-    const imagePrompt = result.data.prompt;
+      const image = await axios.post("/api/generateImg", {
+        prompt: imagePrompt,
+        email: userDetails?.email,
+        title: formData?.title,
+        desc: formData?.desc,
+      });
 
-    console.log(imagePrompt);
-
-    const image = await axios.post("/api/generateImg", {
-      prompt: imagePrompt,
-      email: userDetails?.email,
-      title: formData?.title,
-      desc: formData?.desc,
-    });
-
-    console.log(image.data);
-    setLogoImage(image.data.imageUrl);
-    setLoading(false);
+      if (image.data.imageUrl) {
+        setLogoImage(image.data.imageUrl);
+      } else {
+        setError("Logo generation failed. Please try again later.");
+      }
+    } catch (err) {
+      console.error("Logo generation error:", err);
+      setError("Something went wrong while generating your logo.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -71,7 +80,16 @@ function GenerateLogo() {
           </p>
         </div>
       )}
-      {!loading && (
+
+      {error && (
+        <div className="flex flex-col items-center gap-4 mt-10 text-center">
+          <p className="text-red-500 font-medium">{error}</p>
+          <Button onClick={GenerateAILogo} variant="outline">
+            Try Again
+          </Button>
+        </div>
+      )}
+      {!loading && !error && logoImage && (
         <div className="flex flex-col items-center justify-center gap-6">
           <h1 className="text-3xl font-bold">Your Logo Has been Generated!</h1>
           <Image

@@ -18,31 +18,29 @@ export async function POST(req: Request) {
 
         const client = await clientPromise;
         const db = client.db();
-        const collection = db.collection("users");
 
-        const updateResult = await collection.updateOne(
-            { email },
-            {
-                $set: { title, desc },
-                $push: { imageUrls: imageUrl } as any,
-            },
-            { upsert: true }
-        );
+        const logosCollection = db.collection("logos");
+        const result = await logosCollection.insertOne({
+            email,
+            title,
+            desc,
+            imageUrl,
+            createdAt: new Date(),
+        });
 
-
-        if (updateResult.modifiedCount === 0) {
+        if (!result.insertedId) {
             return NextResponse.json(
-                { error: "User not found or no update made" },
-                { status: 404 }
+                { error: "Failed to save logo" },
+                { status: 500 }
             );
         }
 
         return NextResponse.json({ imageUrl });
     } catch (error) {
-        console.error("Image generation or DB update failed:", error);
+        console.error("Image generation or DB insert failed:", error);
         return NextResponse.json(
             {
-                error: "Failed to generate image or update DB",
+                error: "Failed to generate image or save to DB",
                 detail: (error as Error).message,
             },
             { status: 500 }
