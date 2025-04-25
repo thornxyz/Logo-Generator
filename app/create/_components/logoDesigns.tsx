@@ -12,7 +12,7 @@ function LogoDesigns({ onHandleInputChange, formData }: LogoDesignsProps) {
     formData?.design?.title ?? ""
   );
   return (
-    <div>
+    <div className="max-w-4xl">
       <HeadingDesc
         title={lookup.LogoDesignTitle}
         description={lookup.LogoDesignDesc}
@@ -26,17 +26,18 @@ function LogoDesigns({ onHandleInputChange, formData }: LogoDesignsProps) {
               setSelectedOption(design.title);
               onHandleInputChange(design);
             }}
-            className={`p-1 cursor-pointer hover:border-2 border-red-700 rounded-xl ${
-              selectedOption === design.title &&
-              "border-2 rounded-xl border-red-700"
-            }`}
+            className={`p-1 flex justify-center cursor-pointer rounded-xl border-2 ${
+              selectedOption === design.title
+                ? "border-red-700"
+                : "border-transparent"
+            } hover:border-red-700`}
           >
             <Image
               src={design.image}
               alt={design.title}
-              width={70}
-              height={70}
-              className="w-full rounded-xl object-cover"
+              width={100}
+              height={100}
+              className="w-full max-w-50 rounded-xl object-cover"
             />
           </div>
         ))}

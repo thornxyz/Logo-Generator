@@ -27,15 +27,49 @@ function Page() {
   };
 
   const handleContinue = () => {
-    if (step === 1 && !formData.title) {
-      alert("Please enter a title");
-      return;
+    switch (step) {
+      case 1:
+        if (!formData.title?.trim()) {
+          alert("Please enter a logo title.");
+          return;
+        }
+        break;
+      case 2:
+        if (!formData.desc?.trim()) {
+          alert("Please enter a logo description.");
+          return;
+        }
+        break;
+      case 3:
+        if (!formData.palette || formData.palette.length === 0) {
+          alert("Please choose a color palette.");
+          return;
+        }
+        break;
+      case 4:
+        if (
+          !formData.design ||
+          !formData.design.title ||
+          !formData.design.prompt ||
+          !formData.design.image
+        ) {
+          alert("Please select a valid design style.");
+          return;
+        }
+        break;
+      case 5:
+        if (!formData.idea?.trim()) {
+          alert("Please provide a logo idea or inspiration.");
+          return;
+        }
+        break;
     }
+
     setStep(step + 1);
   };
 
   return (
-    <div className="mt-28 p-10 border rounded-xl 2xl:mx-72">
+    <div className="my-20 p-6 sm:p-10 border rounded-xl 2xl:mx-72">
       {step === 1 ? (
         <Suspense fallback={<div>Loading...</div>}>
           <LogoTitle
@@ -70,17 +104,21 @@ function Page() {
         />
       ) : null}
 
-      <div className="flex items-center justify-between mt-10">
+      <div className="flex items-center justify-between mt-6">
         {step !== 1 && (
-          <Button variant="outline" onClick={() => setStep(step - 1)}>
-            <ArrowLeft />
+          <Button
+            className="px-6 py-5 cursor-pointer"
+            variant="outline"
+            onClick={() => setStep(step - 1)}
+          >
+            <ArrowLeft className="mr-2" />
             Previous
           </Button>
         )}
         {step !== 6 && (
-          <Button onClick={handleContinue}>
-            <ArrowRight />
+          <Button className="px-6 py-5 cursor-pointer" onClick={handleContinue}>
             Continue
+            <ArrowRight className="ml-2" />
           </Button>
         )}
       </div>

@@ -12,7 +12,7 @@ function LogoDesc({ onHandleInputChange, formData }: LogoDescProps) {
 
       <input
         type="text"
-        placeholder={lookup.InputTitlePlaceholder}
+        placeholder="Describe your logo"
         className="p-4 border rounded-lg mt-5 w-full"
         value={formData?.desc || ""}
         onChange={(e) => onHandleInputChange(e.target.value)}
