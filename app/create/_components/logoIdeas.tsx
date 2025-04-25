@@ -68,9 +68,9 @@ function LogoIdeas({ formData, onHandleInputChange }: LogoIdeasProps) {
               setSelectedOption(item);
               onHandleInputChange(item);
             }}
-            className={`p-2 rounded-full border px-3 cursor-pointer
-              hover:border-red-700 ${
-                selectedOption === item && "border-red-700"
+            className={`p-2 rounded-full border-2 px-3 cursor-pointer
+              hover:border-primary ${
+                selectedOption === item && "border-primary"
               }`}
           >
             {item}

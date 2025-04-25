@@ -69,7 +69,7 @@ function Page() {
   };
 
   return (
-    <div className="my-20 p-6 sm:p-10 border rounded-xl 2xl:mx-72">
+    <div className="my-20 p-6 sm:p-10 border-2 rounded-xl 2xl:mx-72">
       {step === 1 ? (
         <Suspense fallback={<div>Loading...</div>}>
           <LogoTitle

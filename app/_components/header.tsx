@@ -6,16 +6,22 @@ import { LayoutDashboard } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { useTheme } from "next-themes";
 
 function Header() {
   const { user } = useUser();
+  const { theme } = useTheme();
   return (
-    <div className="px-2 sm:px-10 lg:px-32 xl:px-48 2xl:px-56 p-4 flex items-center justify-between shadow-sm ">
-      <div className="px-2 py-1 rounded-lg bg-white dark:bg-gray-400">
-        <Link className="cursor-pointer" href={"/"}>
-          <Image src={"/logo.svg"} alt="logo" width={130} height={100} />
-        </Link>
-      </div>
+    <div className="px-2 sm:px-10 lg:px-32 xl:px-48 2xl:px-56 m-1 rounded-2xl p-4 flex items-center justify-between shadow-lg ">
+      <Link className="cursor-pointer" href={"/"}>
+        <Image
+          src="/logo.svg"
+          alt="logo"
+          width={130}
+          height={100}
+          className={theme === "dark" ? "invert-colors" : ""}
+        />
+      </Link>
 
       <div className="flex gap-2 sm:gap-6 items-center">
         <ThemeToggle />
