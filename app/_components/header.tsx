@@ -5,15 +5,20 @@ import { SignInButton, UserButton, useUser } from "@clerk/nextjs";
 import { LayoutDashboard } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 function Header() {
   const { user } = useUser();
   return (
-    <div className="px-10 lg:px-32 xl:px-48 2xl:px-56 p-4 flex items-center justify-between shadow-sm ">
-      <Link className="cursor-pointer" href={"/"}>
-        <Image src={"/logo.svg"} alt="logo" width={130} height={100} />
-      </Link>
-      <div className="flex gap-6 items-center">
+    <div className="px-2 sm:px-10 lg:px-32 xl:px-48 2xl:px-56 p-4 flex items-center justify-between shadow-sm ">
+      <div className="px-2 py-1 rounded-lg bg-white dark:bg-gray-400">
+        <Link className="cursor-pointer" href={"/"}>
+          <Image src={"/logo.svg"} alt="logo" width={130} height={100} />
+        </Link>
+      </div>
+
+      <div className="flex gap-2 sm:gap-6 items-center">
+        <ThemeToggle />
         {user ? (
           <Link href={"/dashboard"}>
             <Button

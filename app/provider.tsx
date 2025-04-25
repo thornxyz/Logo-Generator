@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { UserDetailContext } from "./_context/userDetailContext";
 import { UserDetails } from "@/types";
+import { ThemeProvider } from "@/components/theme-provider";
 
 function Provider({ children }: { children: React.ReactNode }) {
   const { user } = useUser();
@@ -24,12 +25,17 @@ function Provider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
       <UserDetailContext.Provider value={{ userDetails, setUserDetails }}>
         <Header />
         <div className="px-10 lg:px-32 xl:px-48 2xl:px-56">{children}</div>
       </UserDetailContext.Provider>
-    </div>
+    </ThemeProvider>
   );
 }
 

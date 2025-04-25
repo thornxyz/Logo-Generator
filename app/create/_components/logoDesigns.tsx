@@ -28,9 +28,9 @@ function LogoDesigns({ onHandleInputChange, formData }: LogoDesignsProps) {
             }}
             className={`p-1 flex justify-center cursor-pointer rounded-xl border-2 ${
               selectedOption === design.title
-                ? "border-red-700"
+                ? "border-primary"
                 : "border-transparent"
-            } hover:border-red-700`}
+            } hover:border-primary`}
           >
             <Image
               src={design.image}
